@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import nltk
 from nltk.tokenize import word_tokenize
-# nltk.download('punkt')
+nltk.download('punkt')
 
 def get_parser(soup, review_list, overall_rating_list):
     reviews = soup.find_all('span', {'data-testid':'wrapper-tag', 'class':'t9JcvSL3Bsj1lxMSi3pz h_kb2PFOoyZe1skyGiz9 DUkDy8G7CgNvYcWgJYPN'}) 
@@ -60,33 +60,34 @@ def get_data_from_page_list(url_list):
     df = pd.concat(df_list)
     return df
         
+if __name__ == '__main__':
 
-url_list = [
-            # rating above 4
-            'https://www.opentable.ca/miller-tavern?originId=9ebce773-3b2e-48fc-93bc-8b79a06e95bc&corrid=9ebce773-3b2e-48fc-93bc-8b79a06e95bc&avt=eyJ2IjoyLCJtIjoxLCJwIjowLCJzIjowLCJuIjowfQ&page=1&sortBy=newestReview',
-            'https://www.opentable.ca/r/blue-blood-steakhouse-toronto?originId=1937513f-6bbc-4f51-b20e-444a14fea337&corrid=1937513f-6bbc-4f51-b20e-444a14fea337&avt=eyJ2IjoyLCJtIjoxLCJwIjowLCJzIjowLCJuIjowfQ&page=1&sortBy=newestReview',
-            # same restaurant but different location
-            'https://www.opentable.ca/the-keg-steakhouse-and-bar-york-street?corrid=b977b24e-4643-4356-9441-763d4bebd7cf&avt=eyJ2IjoyLCJtIjoxLCJwIjowLCJzIjoxLCJuIjowfQ&p=2&sd=2023-10-10T19%3A00%3A00&page=1&sortBy=newestReview',
-            # rating 3.1
-            'https://www.opentable.ca/r/chez-mal-manchester?page=1&sortBy=newestReview',
-            # rating 2.9
-            'https://www.opentable.ca/r/lookout-rooftop-boston?page=1&sortBy=newestReview',
-            'https://www.opentable.ca/r/bar-31-shangri-la-the-shard-london?page=1&sortBy=newestReview',
-            # rating 2.3
-            'https://www.opentable.ca/pizza-rustica-restaurant-and-bar?originId=d084e009-f0b5-4a6f-8ba0-477c01aea935&corrid=d084e009-f0b5-4a6f-8ba0-477c01aea935&avt=eyJ2IjoyLCJtIjoxLCJwIjowLCJzIjoxLCJuIjowfQ&p=2&sd=2023-10-10T19%3A00%3A00&page=1&sortBy=newestReview',
-            # rating 1.9
-            'https://www.opentable.ca/r/lime-an-american-cantina-denver?page=1&sortBy=newestReview',
-            # rating 1.6
-            'https://www.opentable.ca/r/bourgee-lakeside-grays?page=1&sortBy=newestReview',
-            # rating 1.3
-            'https://www.opentable.ca/r/chophouse-363-chino?page=1&sortBy=newestReview'
-            ]
-
-eval_url = [
-            'https://www.opentable.ca/r/the-keg-steakhouse-and-bar-north-york?originId=bcc0b7a5-d42e-468c-8a2d-985968665f45&corrid=bcc0b7a5-d42e-468c-8a2d-985968665f45&avt=eyJ2IjoyLCJtIjoxLCJwIjowLCJzIjowLCJuIjowfQ&page=1&sortBy=newestReview'
-            ]
-
-df = get_data_from_page_list(url_list)
-eval = get_data_from_page_list(eval_url)
-df.to_csv('./train.csv', index=False)
-eval.to_csv('./eval.csv', index=False)
+    url_list = [
+                # rating above 4
+                'https://www.opentable.ca/miller-tavern?originId=9ebce773-3b2e-48fc-93bc-8b79a06e95bc&corrid=9ebce773-3b2e-48fc-93bc-8b79a06e95bc&avt=eyJ2IjoyLCJtIjoxLCJwIjowLCJzIjowLCJuIjowfQ&page=1&sortBy=newestReview',
+                'https://www.opentable.ca/r/blue-blood-steakhouse-toronto?originId=1937513f-6bbc-4f51-b20e-444a14fea337&corrid=1937513f-6bbc-4f51-b20e-444a14fea337&avt=eyJ2IjoyLCJtIjoxLCJwIjowLCJzIjowLCJuIjowfQ&page=1&sortBy=newestReview',
+                # same restaurant but different location
+                'https://www.opentable.ca/the-keg-steakhouse-and-bar-york-street?corrid=b977b24e-4643-4356-9441-763d4bebd7cf&avt=eyJ2IjoyLCJtIjoxLCJwIjowLCJzIjoxLCJuIjowfQ&p=2&sd=2023-10-10T19%3A00%3A00&page=1&sortBy=newestReview',
+                # rating 3.1
+                'https://www.opentable.ca/r/chez-mal-manchester?page=1&sortBy=newestReview',
+                # rating 2.9
+                'https://www.opentable.ca/r/lookout-rooftop-boston?page=1&sortBy=newestReview',
+                'https://www.opentable.ca/r/bar-31-shangri-la-the-shard-london?page=1&sortBy=newestReview',
+                # rating 2.3
+                'https://www.opentable.ca/pizza-rustica-restaurant-and-bar?originId=d084e009-f0b5-4a6f-8ba0-477c01aea935&corrid=d084e009-f0b5-4a6f-8ba0-477c01aea935&avt=eyJ2IjoyLCJtIjoxLCJwIjowLCJzIjoxLCJuIjowfQ&p=2&sd=2023-10-10T19%3A00%3A00&page=1&sortBy=newestReview',
+                # rating 1.9
+                'https://www.opentable.ca/r/lime-an-american-cantina-denver?page=1&sortBy=newestReview',
+                # rating 1.6
+                'https://www.opentable.ca/r/bourgee-lakeside-grays?page=1&sortBy=newestReview',
+                # rating 1.3
+                'https://www.opentable.ca/r/chophouse-363-chino?page=1&sortBy=newestReview'
+                ]
+    
+    eval_url = [
+                'https://www.opentable.ca/r/the-keg-steakhouse-and-bar-north-york?originId=bcc0b7a5-d42e-468c-8a2d-985968665f45&corrid=bcc0b7a5-d42e-468c-8a2d-985968665f45&avt=eyJ2IjoyLCJtIjoxLCJwIjowLCJzIjowLCJuIjowfQ&page=1&sortBy=newestReview'
+                ]
+    
+    df = get_data_from_page_list(url_list)
+    eval = get_data_from_page_list(eval_url)
+    df.to_csv('./train.csv', index=False)
+    eval.to_csv('./eval.csv', index=False)
