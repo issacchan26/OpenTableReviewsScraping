@@ -5,8 +5,9 @@ Collect OpenTable reviews with Web Scraping
 This repo provides the python script to scrape OpenTable reviews.  
 There are 4 user ratings in each review, the main script will get all the reviews and corresponding overall rating from the target restaurants.  
 Sample format:
-```bash
-review  overall rating
+
+```python
+                                                  review  overall rating
 0      Great ambiance and service. Lots of menu choic...               3
 1      Exceptional service, cuisine, ambience.  Windo...               4
 2      Our server Darcy was wonderful!  She accommoda...               2
