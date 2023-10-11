@@ -4,9 +4,10 @@ Collect OpenTable reviews with Web Scraping
 ## About the script
 This repo provides the python script to scrape OpenTable reviews.  
 There are 4 user ratings in each review, the main script will get all the reviews and corresponding overall rating from the target restaurants.  
+
 Sample format:
 
-```python
+```
                                                   review  overall rating
 0      Great ambiance and service. Lots of menu choic...               3
 1      Exceptional service, cuisine, ambience.  Windo...               4
@@ -25,4 +26,18 @@ Sample format:
 1. Find the target restaurant website in OpenTable, go to page 2 of review page.
 2. Copy the url of review page 2, e.g. https://www.opentable.ca/r/chez-mal-manchester?page=2&sortBy=newestReview
 3. Place the urls in url_list for training dataset and eval_url for validation dataset.
-4. Run the main script, it will save the df as csv with two columns: reviews and overall rating of the restaurants.  
+4. Run the main script, it will save the df as csv with two columns: reviews and overall rating of the restaurants.
+
+## How to import the csv as dataset with Hugging Face API
+You may use below function to read the .csv file  
+
+```python
+def load_data(path, name):
+    df = pd.read_csv(path)  
+    df = df.rename(columns={'review': 'text', 'overall rating': 'label'})
+    dataset = Dataset.from_pandas(df, split=name)
+    return dataset
+```
+For more examples, please refer to:  
+https://huggingface.co/docs/datasets/main/en/loading#pandas-dataframe
+https://huggingface.co/docs/datasets/main/en/tabular_load
